@@ -1,5 +1,5 @@
-    Finance::Symbology
-========================== 
+Finance::Symbology
+===================
 #### Common US Stock market convention swapper / tester
 
 ### SYNOPSIS
