@@ -1,10 +1,8 @@
-=pod
+    Finance::Symbology
+========================== 
+#### Common US Stock market convention swapper / tester
 
-=head1 NAME
-
-Finance::Symbology - Common US Stock market convention swapper / tester
-
-=head1 SYNOPSIS
+### SYNOPSIS
 
     use Finance::Symbology;
 
@@ -23,31 +21,31 @@ Finance::Symbology - Common US Stock market convention swapper / tester
 
     my $what_is = $converter->what($symbol);
 
-=head1 DESCRIPTION
+### DESCRIPTION
 
 Finance::Symbology is a module that can convert valid symbol syntaxes across 
 popular formats from the US Domestic markets. Converter can also test symbols
 to provide information about it, such as type, class, and underyling symbol
 
-=head1 USAGE
+### USAGE
 
-=head2 convert(symbol(s), FROM, TO)
+#### convert(symbol(s), FROM, TO)
 
 Converts a symbol from a convetion to another convention
 
-Example:
+##### Example:
 
     $converter->convert('AAPL PR', 'CMS', 'CQS');
 
     output: AAPLp
 
 
-=head2 what(symbol)
+#### what(symbol)
 
 Tests a symbol of any convention and breaks down its convention if valid
 
 
-Example:
+##### Example:
 
     $converter->what('AAPLp');
 
@@ -59,14 +57,13 @@ Example:
         'type' => 'Preferred'
     }
 
-=head1 Author
+#### Author
 
-George Tsafas <elb0w@elbowrage.com>
+##### George Tsafas <elb0w@elbowrage.com>
 
-=head1 Support
+#### Support
 
-elb0w on irc.freenode.net #perl
+##### elb0w on irc.freenode.net #perl
 
 
-=cut
 
