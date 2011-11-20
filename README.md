@@ -59,11 +59,12 @@ Tests a symbol of any convention and breaks down its convention if valid
 
 #### Author
 
-##### George Tsafas <elb0w@elbowrage.com>
+George Tsafas <elb0w@elbowrage.com>
+
 
 #### Support
 
-##### elb0w on irc.freenode.net #perl
+elb0w on irc.freenode.net #perl
 
 
 
