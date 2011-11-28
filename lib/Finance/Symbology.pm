@@ -10,7 +10,7 @@ use Finance::Symbology::Convention::NASDAQ::Integrated;
 
 BEGIN {
 
-    our $VERSION = 0.3;
+    our $VERSION = 0.4;
 
 }
 
@@ -64,17 +64,25 @@ sub convert {
     if (ref $symbols eq 'ARRAY') {
         my @convertedsymbols; 
         for my $symbol (@{$symbols}){
-            my $fromobj = $self->{Check}{uc($from)}->($symbol);
-            return "Invalid format for $from \($symbol\)" unless defined $fromobj;
-            my $toobj = $self->{Convert}{uc($to)}->($fromobj);
-            push @convertedsymbols, $toobj;
+            if ($symbol =~ m/^[A-Za-z]+$/) {
+                push @convertedsymbols, $symbol;
+            } else {
+                my $fromobj = $self->{Check}{uc($from)}->($symbol);
+                return "Invalid format for $from \($symbol\)" unless defined $fromobj;
+                my $toobj = $self->{Convert}{uc($to)}->($fromobj);
+                push @convertedsymbols, $toobj;
+            }
         }
         return @convertedsymbols;
     } else {
-        my $fromobj = $self->{Check}{uc($from)}->($symbols);
-        return "Invalid format for $from \($symbols\)" unless defined $fromobj;
-        my $toobj = $self->{Convert}{uc($to)}->($fromobj);
-        return $toobj;
+        if ($symbols =~ m/^[A-Za-z]+$/) {
+            return $symbols;
+        } else {
+            my $fromobj = $self->{Check}{uc($from)}->($symbols);
+            return "Invalid format for $from \($symbols\)" unless defined $fromobj;
+            my $toobj = $self->{Convert}{uc($to)}->($fromobj);
+            return $toobj;
+        }
     }
 }
 
