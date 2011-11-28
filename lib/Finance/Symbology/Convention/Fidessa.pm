@@ -3,7 +3,7 @@ package Finance::Symbology::Convention::Fidessa;
 use strict;
 use warnings;
 
-our $VERSION = 0.2;
+our $VERSION = 0.3;
 
 my $template = {
     'Preferred' => {
@@ -51,8 +51,8 @@ my $template = {
         template => '-CL',
     },
     'Preferred Class Called' => {
-        pattern => qr/^([A-Z]+)(-([A-Z])L)$/,
-        template => '-=CLASS=L',
+        pattern => qr/^([A-Z]+)(-([A-Z])\.CL)$/,
+        template => '-=CLASS=.CL',
         class => 3
     },
     'Preferred Class When Issued' => {

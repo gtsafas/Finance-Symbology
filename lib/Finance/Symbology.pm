@@ -5,12 +5,12 @@ use warnings;
 
 use Finance::Symbology::Convention::CQS;
 use Finance::Symbology::Convention::CMS;
-#use Finance::Symbology::Convention::Fidessa; Need confirmation on convention
+use Finance::Symbology::Convention::Fidessa;
 use Finance::Symbology::Convention::NASDAQ::Integrated;
 
 BEGIN {
 
-    our $VERSION = 0.2;
+    our $VERSION = 0.3;
 
 }
 
@@ -22,13 +22,13 @@ sub new {
         Check => {
             CQS     => sub { my $x = shift; return Finance::Symbology::Convention::CQS->check($x); },
             CMS     => sub { my $x = shift; return Finance::Symbology::Convention::CMS->check($x); },
-            #FIDESSA => sub { my $x = shift; return Finance::Symbology::Convention::Fidessa->check($x); },
+            FIDESSA => sub { my $x = shift; return Finance::Symbology::Convention::Fidessa->check($x); },
             NASINTEGRATED => sub { my $x = shift; return Finance::Symbology::Convention::NASDAQ::Integrated->check($x); }
         }, 
         Convert => {
             CQS => sub { my $x = shift; return Finance::Symbology::Convention::CQS->convert($x); },
             CMS => sub { my $x = shift; return Finance::Symbology::Convention::CMS->convert($x); },
-            #FIDESSA => sub { my $x = shift; return Finance::Symbology::Convention::Fidessa->convert($x); },
+            FIDESSA => sub { my $x = shift; return Finance::Symbology::Convention::Fidessa->convert($x); },
             NASINTEGRATED => sub { my $x = shift; return Finance::Symbology::Convention::NASDAQ::Integrated->convert($x); }
         }
     };
@@ -48,8 +48,8 @@ sub what {
     $returnObj->{CMS} = $self->{Check}{CMS}->($symbol);
     delete $returnObj->{CMS} unless defined $returnObj->{CMS};
 
-    #$returnObj->{FIDESSA} = $self->{Check}{FIDESSA}->($symbol);
-    #delete $returnObj->{FIDESSA} unless defined $returnObj->{FIDESSA};
+    $returnObj->{FIDESSA} = $self->{Check}{FIDESSA}->($symbol);
+    delete $returnObj->{FIDESSA} unless defined $returnObj->{FIDESSA};
     
     $returnObj->{NASINTEGRATED} = $self->{Check}{NASINTEGRATED}->($symbol);
     delete $returnObj->{NASINTEGRATED} unless defined $returnObj->{NASINTEGRATED};
@@ -99,9 +99,7 @@ Finance::Symbology - Common US Stock market convention swapper / tester
     my $symbols = [ 'AAPL WI', 'C PR', 'TEST A' ];
     my $symbol = 'TEST A';
 
-    # Valid convention options CMS, CQS, NASIntegrated
-
-    # Fidessa convention sheet is included but not implemented as the spec given had a bug
+    # Valid convention options CMS, CQS, NASINTEGRATED, Fidessa
 
     my $converted_symbols =  $converter->convert($symbols, 'CMS', 'CQS' );
     my $converted_symbol  = $converter->convert($symbol, 'CMS', 'CQS' );
@@ -119,13 +117,17 @@ to provide information about it, such as type, class, and underyling symbol
 
 =head2 convert(symbol(s), FROM, TO)
 
-Converts a symbol from a convetion to another convention
+Converts a symbol from a convetion to another convention also works with lists
 
 Example:
 
     $converter->convert('AAPL PR', 'CMS', 'CQS');
 
     output: AAPLp
+
+    $converter->convert(['AAPL PR', 'C PRA'], 'CMS', 'CQS');
+
+    output: ['AAPLp', 'CpA'];
 
 
 =head2 what(symbol)

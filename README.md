@@ -39,6 +39,10 @@ Converts a symbol from a convetion to another convention
 
     output: AAPLp
 
+    $converter->convert(['AAPL PR', 'C PRA'], 'CMS', 'CQS');
+
+    output: ['AAPLp', 'CpA'];
+
 
 #### what(symbol)
 
