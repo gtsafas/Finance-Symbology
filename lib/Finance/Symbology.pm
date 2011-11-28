@@ -64,7 +64,7 @@ sub convert {
     if (ref $symbols eq 'ARRAY') {
         my @convertedsymbols; 
         for my $symbol (@{$symbols}){
-            if ($symbol =~ m/^[A-Za-z]+$/) {
+            if ($symbol =~ m/^[A-Z]+$/) {
                 push @convertedsymbols, $symbol;
             } else {
                 my $fromobj = $self->{Check}{uc($from)}->($symbol);
@@ -75,7 +75,7 @@ sub convert {
         }
         return @convertedsymbols;
     } else {
-        if ($symbols =~ m/^[A-Za-z]+$/) {
+        if ($symbols =~ m/^[A-Z]+$/) {
             return $symbols;
         } else {
             my $fromobj = $self->{Check}{uc($from)}->($symbols);
